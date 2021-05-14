@@ -1,7 +1,6 @@
 package com.app.tweet.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +17,11 @@ import com.app.tweet.controller.request.model.PageReqData;
 import com.app.tweet.model.ReplyTweet;
 import com.app.tweet.model.Tweet;
 import com.app.tweet.model.TweetUserDetail;
-import com.app.tweet.model.User;
 import com.app.tweet.repo.ReplyTweetRepository;
 import com.app.tweet.repo.TweetRepository;
 import com.app.tweet.repo.TweetUserDetailRepository;
 import com.app.tweet.repo.UserRepository;
 import com.app.tweet.service.TweetService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class TweetServiceImpl implements TweetService {
@@ -59,11 +56,13 @@ public class TweetServiceImpl implements TweetService {
 		tweet.setLikes(likes);
 		tweet.setUser(user.get());
 		tweet.setDate(new Date());
+		tweet.setUserId(user.get().getId());
 		return tweetRepo.save(tweet);
 	}
 
 	public List<Tweet> getAllTweet(PageReqData page) {
-		Pageable page1 = PageRequest.of(page.getPage(), page.getSize(),Sort.by(Sort.Direction.DESC,"Date"));
+//		Pageable page1 = PageRequest.of(page.getPage(), page.getSize(),Sort.by(Sort.Direction.DESC,"Date"));
+		Pageable page1 = PageRequest.of(page.getPage(), page.getSize());
 		Page<Tweet> results = tweetRepo.findAll(page1);
 		return results.toList();
 	}
@@ -76,8 +75,9 @@ public class TweetServiceImpl implements TweetService {
 
 	@Override
 	public List<Tweet> getTweetByUser(String userId, PageReqData page) {
-		Pageable page1 = PageRequest.of(page.getPage(), page.getSize(),Sort.by(Sort.Direction.DESC,"Date"));
-		return tweetRepo.findByUser(userId,page1);
+//		Pageable page1 = PageRequest.of(page.getPage(), page.getSize(),Sort.by(Sort.Direction.DESC,"Date"));
+		Pageable page1 = PageRequest.of(page.getPage(), page.getSize());
+		return tweetRepo.findByUserId(userId,page1);
 	}
 
 	@Override
@@ -89,7 +89,9 @@ public class TweetServiceImpl implements TweetService {
 		Tweet tweet = result.get();
 		reply.setDate(new Date());
 		reply = replyRepo.save(reply);
-		List<ReplyTweet> replyList = tweet.getReply();
+		List<ReplyTweet> temp = tweet.getReply();
+		List<ReplyTweet> replyList=new ArrayList<ReplyTweet>();
+		replyList.addAll(temp);
 		replyList.add(reply);
 		tweet.setReply(replyList);
 
@@ -113,7 +115,9 @@ public class TweetServiceImpl implements TweetService {
 	public Tweet likeTweet(String userId, String tweetId) {
 		Optional<TweetUserDetail> user = tweetUserDetailRepo.findById(userId);
 		Optional<Tweet> optTweet=tweetRepo.findById(tweetId);
-		List<TweetUserDetail> likes = optTweet.get().getLikes();
+		List<TweetUserDetail> temp = optTweet.get().getLikes();
+		List<TweetUserDetail> likes=new ArrayList<TweetUserDetail>();
+		likes.addAll(temp);
 		likes.add(user.get());
 		Tweet tweet=optTweet.get();
 		tweet.setLikes(likes);

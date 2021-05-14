@@ -25,13 +25,14 @@ public class TweetApplication {
 	@Bean
 	InitializingBean sendDatabase() {
 		return ()->{
-			Optional<Role> admin= roleRepository.findByName(ERole.ROLE_ADMIN);
+			Optional<Role> admin= roleRepository.findByName("ROLE_ADMIN");
 			if(!admin.isPresent()) {
-				roleRepository.save(new Role(ERole.ROLE_ADMIN));
+				
+				roleRepository.save(new Role("ROLE_ADMIN"));
 			}
-			Optional<Role> user= roleRepository.findByName(ERole.ROLE_USER);
+			Optional<Role> user= roleRepository.findByName("ROLE_USER");
 			if(!user.isPresent()) {
-				roleRepository.save(new Role(ERole.ROLE_USER));
+				roleRepository.save(new Role("ROLE_USER"));
 			}
 			System.out.println("Role save completed");
 		};

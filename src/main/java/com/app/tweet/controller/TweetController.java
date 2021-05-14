@@ -66,7 +66,6 @@ public class TweetController {
 	@PostMapping("{userId}/add")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<Tweet> saveTweet(@PathVariable("userId") String userId, @RequestBody Tweet tweet) {
-		System.out.println(tweet.getDate());
 		Tweet response = tweetService.saveTweet(userId, tweet);
 		return ResponseEntity.ok(response);
 	}

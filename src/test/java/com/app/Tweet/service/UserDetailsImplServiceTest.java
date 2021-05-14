@@ -49,7 +49,7 @@ public class UserDetailsImplServiceTest {
 		user.setPassword("pass1234");
 		user.setPhoneNumber("12345678");
 		Role role=new Role();
-		role.setName(ERole.ROLE_ADMIN);
+		role.setName("ROLE_ADMIN");
 		role.setId("");
 		role.getId();
 		role.getName();

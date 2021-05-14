@@ -129,7 +129,7 @@ public class AuthControllerTests {
     public void registerUserTest() {
     	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
     	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
-    	Role userRole=new Role(ERole.ROLE_USER);
+    	Role userRole=new Role("ROLE_USER");
     	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
     	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
     	MessageResponse msgRes=new MessageResponse("User registered successfully!");
@@ -164,7 +164,7 @@ public class AuthControllerTests {
     public void registerUserForRoleNullTest() {
     	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
     	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
-    	Role userRole=new Role(ERole.ROLE_USER);
+    	Role userRole=new Role("ROLE_USER");
     	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
     	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
     	MessageResponse msgRes=new MessageResponse("User registered successfully!");
