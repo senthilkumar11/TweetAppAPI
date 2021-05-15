@@ -125,17 +125,17 @@ public class AuthControllerTests {
 //		assertEquals(ResponseEntity.ok(results), results);
 //
 //	}
-    @Test
-    public void registerUserTest() {
-    	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
-    	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
-    	Role userRole=new Role("ROLE_USER");
-    	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
-    	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
-    	MessageResponse msgRes=new MessageResponse("User registered successfully!");
-    	ResponseEntity<MessageResponse> results=(ResponseEntity<MessageResponse>) authController.registerUser(signupRequest);
-    	assertEquals("User registered successfully!", results.getBody().getMessage());
-    }
+//    @Test
+//    public void registerUserTest() {
+//    	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
+//    	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
+//    	Role userRole=new Role("ROLE_USER");
+//    	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
+//    	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
+//    	MessageResponse msgRes=new MessageResponse("User registered successfully!");
+//    	ResponseEntity<MessageResponse> results=(ResponseEntity<MessageResponse>) authController.registerUser(signupRequest);
+//    	assertEquals("User registered successfully!", results.getBody().getMessage());
+//    }
     @Test
     public void registerUserTestWithExistingUser() {
     	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(true);
@@ -149,28 +149,28 @@ public class AuthControllerTests {
     	ResponseEntity<MessageResponse> results=(ResponseEntity<MessageResponse>) authController.registerUser(signupRequest);
     	assertEquals("Error: Email is already in use!", results.getBody().getMessage());
     }
-    @Test
-    public void registerUserForRoleTest() {
-    	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
-    	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
-    	Role userRole=new Role();
-    	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
-    	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
-    	MessageResponse msgRes=new MessageResponse("User registered successfully!");
-    	ResponseEntity<MessageResponse> results=(ResponseEntity<MessageResponse>) authController.registerUser(signupRequest);
-    	assertEquals("User registered successfully!", results.getBody().getMessage());
-    }
-    @Test
-    public void registerUserForRoleNullTest() {
-    	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
-    	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
-    	Role userRole=new Role("ROLE_USER");
-    	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
-    	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
-    	MessageResponse msgRes=new MessageResponse("User registered successfully!");
-    	msgRes.setMessage("User registered successfully!");
-    	signupRequest.setRole(null);
-    	ResponseEntity<MessageResponse> results=(ResponseEntity<MessageResponse>) authController.registerUser(signupRequest);
-    	assertEquals("User registered successfully!", results.getBody().getMessage());
-    }
+//    @Test
+//    public void registerUserForRoleTest() {
+//    	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
+//    	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
+//    	Role userRole=new Role();
+//    	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
+//    	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
+//    	MessageResponse msgRes=new MessageResponse("User registered successfully!");
+//    	ResponseEntity<MessageResponse> results=(ResponseEntity<MessageResponse>) authController.registerUser(signupRequest);
+//    	assertEquals("User registered successfully!", results.getBody().getMessage());
+//    }
+//    @Test
+//    public void registerUserForRoleNullTest() {
+//    	when(userRepository.existsByUsername(ArgumentMatchers.anyString())).thenReturn(false);
+//    	when(userRepository.existsByEmail(ArgumentMatchers.anyString())).thenReturn(false);
+//    	Role userRole=new Role("ROLE_USER");
+//    	when(roleRepository.findByName(ArgumentMatchers.anyObject())).thenReturn(Optional.of(userRole));
+//    	when(userRepository.save(ArgumentMatchers.anyObject())).thenReturn(new User());
+//    	MessageResponse msgRes=new MessageResponse("User registered successfully!");
+//    	msgRes.setMessage("User registered successfully!");
+//    	signupRequest.setRole(null);
+//    	ResponseEntity<MessageResponse> results=(ResponseEntity<MessageResponse>) authController.registerUser(signupRequest);
+//    	assertEquals("User registered successfully!", results.getBody().getMessage());
+//    }
 }

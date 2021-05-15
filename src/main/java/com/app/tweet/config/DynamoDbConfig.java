@@ -41,7 +41,7 @@ public class DynamoDbConfig {
 
 	        return AmazonDynamoDBClientBuilder.standard()
 	                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, region))
-	                //.withCredentials(amazonAWSCredentialsProvider())
+	                .withCredentials(amazonAWSCredentialsProvider())
 	                .build();
 	    }
 
