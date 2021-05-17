@@ -38,7 +38,7 @@ import com.app.tweet.model.User;
 import com.app.tweet.repo.RoleRepository;
 import com.app.tweet.repo.UserRepository;
 import com.app.tweet.security.jwt.JwtUtils;
-import com.app.tweet.service.impl.Producer;
+//import com.app.tweet.service.impl.Producer;
 import com.app.tweet.service.impl.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -59,9 +59,14 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
+//	
+//	@Autowired
+//	Producer producer;
 	
-	@Autowired
-	Producer producer;
+	@GetMapping("/test")
+	public String testApp(){
+		return "Hello";
+	}
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -126,7 +131,7 @@ public class AuthController {
 		}
 
 		user.setRoles(roles);
-		producer.postToTopic(user);
+//		producer.postToTopic(user);
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
